@@ -2,7 +2,6 @@ from django.db.models import Sum
 from django.shortcuts import render, redirect
 from . import models, forms
 
-
 def get_category(request):
     category = models.Category.objects.all()
     context = {'category': category}
@@ -12,9 +11,12 @@ def get_category(request):
 def get_balance(request):
     balance = models.OnlineBalance.objects.all()
     diff = models.OnlineBalance.objects.all().aggregate(Sum('amount'))
-    context = {'balance': balance, 'diff': diff}
-    render(request, 'categories/get_balance.html', context)
+    # print(diff)
+    context = {'balance': balance, 'diff': diff['amount__sum']}
+    return render(request, 'categories/get_balance.html', context)
 
+def base_view(request):
+    return render(request, 'base.html')
 
 def add_category(request):
     if request.method == 'POST':

@@ -1,18 +1,25 @@
 {% extends 'base.html' %}
 
-{% block title %}My Expenses{% endblock %}
+{% block title %}Категории учета:{% endblock %}
 
 {% block body %}
+    <h1 style="text-align: center">Категории учета:</h1>
 
-    <h1>Expenses</h1>
-
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    	<th>Имя:</th>
+    	<th>Описание:</th>
+    </tr>
+    </thead>
+    <tbody>
     {% for item in category %}
-        <h3>{{ category.name }}</h3>
-        <p>
-            Name: {{ item.name }}
-            Reason: {{ item.describe }}
-        </p>
-
+    <tr>
+        <td>{{ item.name }}</td>
+        <td>{{ item.describe}}</td>
+    </tr>
     {% endfor %}
+    </table>
+    </tbody>
 
 {% endblock %}

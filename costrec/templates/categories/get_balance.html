@@ -1,21 +1,46 @@
 {% extends 'base.html' %}
 
-{% block title %}Online Balance{% endblock %}
+{% block title %}История баланса{% endblock %}
 
 {% block body %}
 
-    <h1>Expenses</h1>
+    <h1 style="text-align: center">История баланса:</h1>
 
+    <table class="table table-striped">
+    <thead>
+    <tr>
+    	<th>Дата:</th>
+    	<th>Категория:</th>
+    	<th>Сумма:</th>
+    	
+    	
+    </tr>
+    </thead>
+    <tbody>
     {% for item in balance %}
-
-        <p>
-            Amount: {{ item.amount }}
-            Date: {{ item.datetime }}
-            Category: {{ item.category }}
-        </p>
-        
+    <tr>
+    	<td>{{ item.datetime }}</td>
+        <td>{{ item.category }}</td>
+        <td>
+        {% if item.amount > 0 %} 
+    	<span style="color: green">
+    	{% else %}
+    	<span style="color: red">
+    	{% endif %}
+    	{{ item.amount }}
+    	</span></td>
+    </tr>
     {% endfor %}
-
-    <h2>Current Balance: {{ diff }}</h2>
+    </table>
+    </tbody>
+    <p style="text-align: right;">Текущий баланс:
+    	{% if diff > 0 %} 
+    	<span style="color: green">
+    	{% else %}
+    	<span style="color: red">
+    	{% endif %}
+    	{{ diff }}
+    	</span>
+   	</p >
 
 {% endblock %}
