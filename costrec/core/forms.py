@@ -1,7 +1,20 @@
 from django.forms import ModelForm
 from . import models
 
-class BalanceForm(ModelForm):
+class OnlineBalanceForm(ModelForm):
     class Meta:
-        model = models.Balance
-        field = ('amount', 'datetime', 'reason')
+        model = models.OnlineBalance
+        fields = ('amount', 'category')
+        labels = {
+            "amount": "Сумма",
+            "category": "Категория",
+            }                
+
+class CategoryForm(ModelForm):
+    class Meta:
+        model = models.Category
+        fields = ('name', 'describe')
+        labels = {
+            "name": "Имя",
+            "describe": "Описание",
+            }        
