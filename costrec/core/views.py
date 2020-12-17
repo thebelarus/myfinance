@@ -3,17 +3,17 @@ from django.shortcuts import render, redirect
 from . import models, forms
 
 
-def categories(request):
+def get_category(request):
     category = models.Category.objects.all()
     context = {'category': category}
-    return render(request, 'some.html', context)
+    return render(request, 'get_category.html', context)
 
 
-def online_balance(request):
+def get_balance(request):
     balance = models.OnlineBalance.objects.all()
     diff = models.OnlineBalance.objects.all().agreggate(Sum('amount'))
     context = {'balance': balance, 'diff': diff}
-    render(request, 'expenses.html', context)
+    render(request, 'get_balance.html', context)
 
 
 def add_category(request):
@@ -22,12 +22,12 @@ def add_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('some.html')
+            return redirect('get_category.html')
         else:
-            return render(request, 'categories/new_category.html', {'form': form})
+            return render(request, 'categories/add_category.html', {'form': form})
     else:
         form = forms.CategoryForm()
-        return render(request, 'categories/new_category.html', {'form': form})
+        return render(request, 'categories/add_category.html', {'form': form})
 
 
 def add_balance(request):
@@ -36,9 +36,9 @@ def add_balance(request):
         if form.is_valid():
             new_balance = form.save(commit=False)
             new_balance.save()
-            return redirect('expenses.html')
+            return redirect('get_balance.html')
         else:
-            return render(request, 'add_exp.html', {'form': form})
+            return render(request, 'add_balance.html', {'form': form})
     else:
         form = forms.OnlineBalanceForm()
-        return render(request, 'add_exp.html', {'form': form})
+        return render(request, 'add_balance.html', {'form': form})
