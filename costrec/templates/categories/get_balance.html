@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Online Balance{% endblock %}
+
+{% block body %}
+
+    <h1>Expenses</h1>
+
+    {% for item in balance %}
+
+        <p>
+            Amount: {{ item.amount }}
+            Date: {{ item.datetime }}
+            Category: {{ item.category }}
+            category
+        </p>
+        
+    {% endfor %}
+
+{% endblock %}

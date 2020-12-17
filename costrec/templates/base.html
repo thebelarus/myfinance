@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}My Expenses{% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<header>
+
+    {% block menu %}<a href="{% url 'get_categories' %}">Categories</a> | <a href="{% url 'get_balance' %}">Online Balance</a> |
+    <a href="{% url 'add_category' %}">Add Category</a> | <a href="{% url 'add_balance' %}">Add Balance</a>{{% endblock %}
+
+
+</header>
+<body>
+{% block body %}Hello! I'm empty now.{% endblock %}
+</body>
+</html>
