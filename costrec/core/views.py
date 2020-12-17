@@ -22,7 +22,7 @@ def add_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('categories/get_category.html')
+            return redirect('get_category')
         else:
             return render(request, 'categories/add_category.html', {'form': form})
     else:
@@ -36,7 +36,7 @@ def add_balance(request):
         if form.is_valid():
             new_balance = form.save(commit=False)
             new_balance.save()
-            return redirect('categories/get_balance.html')
+            return redirect('get_balance')
         else:
             return render(request, 'categories/add_balance.html', {'form': form})
     else:
