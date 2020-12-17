@@ -11,7 +11,7 @@ def get_category(request):
 
 def get_balance(request):
     balance = models.OnlineBalance.objects.all()
-    diff = models.OnlineBalance.objects.all().agreggate(Sum('amount'))
+    diff = models.OnlineBalance.objects.all().aggregate(Sum('amount'))
     context = {'balance': balance, 'diff': diff}
     render(request, 'categories/get_balance.html', context)
 
