@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from . import models, forms
 
@@ -10,7 +11,8 @@ def categories(request):
 
 def online_balance(request):
     balance = models.OnlineBalance.objects.all()
-    context = {'balance': balance}
+    diff = models.OnlineBalance.objects.all().agreggate(Sum('amount'))
+    context = {'balance': balance, 'diff': diff}
     render(request, 'expenses.html', context)
 
 
