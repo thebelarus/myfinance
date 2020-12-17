@@ -11,7 +11,7 @@ def categories(request):
 def online_balance(request):
     balance = models.OnlineBalance.objects.all()
     context = {'balance': balance}
-    render(request, 'other.html', context)
+    render(request, 'expenses.html', context)
 
 
 def add_category(request):
@@ -34,9 +34,9 @@ def add_balance(request):
         if form.is_valid():
             new_balance = form.save(commit=False)
             new_balance.save()
-            return redirect('other.html')
+            return redirect('expenses.html')
         else:
-            return render(request, 'new_balance.html', {'form': form})
+            return render(request, 'add_exp.html', {'form': form})
     else:
         form = forms.OnlineBalanceForm()
-        return render(request, 'new_balance.html', {'form': form})
+        return render(request, 'add_exp.html', {'form': form})
