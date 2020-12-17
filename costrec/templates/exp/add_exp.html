@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Enter new car{% endblock %}
+
+{% block body %}
+
+    <h3>Please enter expenses data</h3>
+
+
+    <form action="." method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <input type="submit" value="Confirm">
+    </form>
+
+{% endblock %}

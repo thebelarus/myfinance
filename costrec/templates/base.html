@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}My Expenses{% endblock %}
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
+<header>
+
+    {% block menu %}<a href="{% url '' %}">Expenses</a> {% endblock %}
+
+
+</header>
 <body>
-$END$
+{% block body %}Hello! I'm empty now.{% endblock %}
 </body>
 </html>
