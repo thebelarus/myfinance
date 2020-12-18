@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, OnlineBalance
+from .models import Category, OnlineBalance, Currency, IncomeCategory, ExpensesCategory, IncomeSubCategory, ExpensesSubCategory, Account, Income, Expenses
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -16,3 +16,11 @@ class OnlineBalanceAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(OnlineBalance, OnlineBalanceAdmin)
+admin.site.register(Currency)
+admin.site.register(IncomeCategory)
+admin.site.register(ExpensesCategory)
+admin.site.register(IncomeSubCategory)
+admin.site.register(ExpensesSubCategory)
+admin.site.register(Account)
+admin.site.register(Income)
+admin.site.register(Expenses)

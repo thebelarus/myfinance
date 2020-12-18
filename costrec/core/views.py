@@ -44,3 +44,45 @@ def add_balance(request):
     else:
         form = forms.OnlineBalanceForm()
         return render(request, 'categories/add_balance.html', {'form': form})
+
+
+def add_currency(request):
+    label = 'Добавление новой валюты'
+    if request.method == 'POST':
+        form = forms.CurrencyForm(request.POST)
+        if form.is_valid():
+            new_currency = form.save(commit=False)
+            new_currency.save()
+            return redirect('get_currency')
+        else:
+            return render(request, 'categories/add_item_form.html', {'form': form,'label':label})
+    else:
+        form = forms.CurrencyForm()
+        return render(request, 'categories/add_item_form.html', {'form': form,'label':label})
+
+
+def get_currency(request):
+    label = 'Список доступных валют'
+    items = models.Currency.objects.all()
+    return render(request, 'categories/get_currency.html', {'items':items,'label':label})
+
+
+def add_account(request):
+    label = 'Добавление нового счета'
+    if request.method == 'POST':
+        form = forms.AccountForm(request.POST)
+        if form.is_valid():
+            new_account = form.save(commit=False)
+            new_account.save()
+            return redirect('get_account')
+        else:
+            return render(request, 'categories/add_item_form.html', {'form': form,'label':label})
+    else:
+        form = forms.AccountForm()
+        return render(request, 'categories/add_item_form.html', {'form': form,'label':label})
+
+
+def get_account(request):
+    label = 'Список доступных счетов'
+    items = models.Account.objects.all()
+    return render(request, 'categories/get_account.html', {'items':items,'label':label})    

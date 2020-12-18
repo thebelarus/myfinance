@@ -19,6 +19,6 @@ from core.views import base_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('myfinance/',include('core.urls')),
+    path('myfinance/',include('core.urls'),name='administration'),
     path('',base_view),
 ]

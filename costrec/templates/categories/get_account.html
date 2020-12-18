@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ label }}:{% endblock %}
+
+{% block body %}
+    <h1 style="text-align: center">{{ label }}</h1>
+    {% if items %}
+        <table class="table table-striped">
+        <thead>
+        <tr>
+        	<th>Название счета:</th>
+        	<th>Валюта:</th>
+            <th>Дата добавления:</th>
+            <th>Баланс:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.currency}}</td>
+            <td>{{ item.datetime}}</td>
+            <td>{{ item.amount}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        </tbody>
+    {% else %}
+        <h3 style="text-align: center">Увы список пуст!</h3>
+    {% endif %}
+{% endblock %}

@@ -18,3 +18,30 @@ class CategoryForm(ModelForm):
             "name": "Имя",
             "describe": "Описание",
             }        
+
+
+class CurrencyForm(ModelForm):
+    class Meta:
+        model = models.Currency
+        fields = ('name', 'currency_code','code')
+        verbose_name = 'Валюта'   
+        verbose_name_plural = 'Валюты'              
+        labels = {
+            "name": "Название валюты",
+            "currency_code": "Международный код валюты",
+            "code":"Cимвол валюты"
+            }           
+
+class AccountForm(ModelForm):
+    class Meta:
+        model = models.Account
+        fields = ('name', 'currency','amount')
+        verbose_name = 'Счет'   
+        verbose_name_plural = 'Счета'    
+        labels = {
+            "name": "Имя счета",
+            "currency": "Валюта",
+            "datetime":"Дата добавления",
+            "amount":"Баланс"
+            }   
+    
