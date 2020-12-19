@@ -15,12 +15,6 @@
 <body>
 	<div class="container">
 	{% block menu %}
-
-
-
-
-
-
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		    <a class="navbar-brand" href="">Мои финансы</a>
 		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,14 +22,6 @@
 		    </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Link</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">Link</a>
-                    </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Получить
@@ -47,28 +33,9 @@
                             <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Категорию</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'get_income_sub_category'%}">Доходов</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Расходов</a></li>
-
-<!--                                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="">Расходов</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Категорию</a></li>
-                                            <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Подкатегорию</a></li> 
-                                        </ul>
-                                      </li>                                            
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"  href="">Доходов</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{% url 'get_income_sub_category'%}">Категорию</a></li>
-                                            <li><a class="dropdown-item" href="{% url 'get_income_sub_category'%}">Подкатегорию</a></li> 
-                                        </ul>
-                                    </li>  -->                                   
+                                    <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Расходов</a></li>                                
                                 </ul>
                             </li>                             
-                            <!-- <li><a  class="dropdown-item" href="{% url 'get_expenses_category'%}">Категории расходов</a></li>
-                            <li><a  class="dropdown-item" href="{% url 'get_income_category'%}">Категории доходов</a></li>
- -->
-
-
-
                             <li><a  class="dropdown-item" href="{% url 'get_account'%}">Перечень счетов</a></li>
                             <li><a  class="dropdown-item" href="{% url 'get_currency'%}">Перечень валют</a></li>
                         </ul>
@@ -78,7 +45,6 @@
                           Добавить
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <!-- <li><a  class="dropdown-item" href="{% url 'add_balance'%}">Движение по счету</a></li> -->
                             <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="http://google.com">Движение по счету</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'add_income'%}">Доход</a></li>
@@ -102,30 +68,8 @@
                                         </ul>
                                          
                                     </li>                                    
-<!--                                     <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 1</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>
-                                            <li><a class="dropdown-item" href="#">Subsubmenu1</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Submenu 2</a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
-                                            <li><a class="dropdown-item" href="#">Subsubmenu2</a></li>
-                                        </ul>
-                                    </li> -->
                                 </ul>
-                            </li>                            
-<!--                             <li class="dropdown-submenu">
-                                <a  class="dropdown-item nav-link dropdown-toggle" id="navbarDropdown"  href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <span class="nav-label">Service C</span><span class="caret"></span></a>
-                                <ul class="dropdown-menu"  >
-                                    <li><a  class="dropdown-item" href="#">Service C1</a></li>
-                                    <li><a  class="dropdown-item" href="#">Service C2</a></li>
-                                    <li><a  class="dropdown-item" href="#">Service C3</a></li>
-                                    <li><a  class="dropdown-item" href="#">Service C4</a></li>
-                                    <li><a  class="dropdown-item" href="#">Service C5</a></li>
-                                </ul>
-                            </li>    -->                        
+                            </li>                                                 
                         </ul>
                     </li>  
                     <li class="nav-item">
