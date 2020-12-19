@@ -2,7 +2,6 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length = 150, verbose_name='name')
-    describe = models.TextField()
     
     def __str__(self):
         return self.name
@@ -25,7 +24,7 @@ class Currency(models.Model):
 
     def __str__(self):
         return self.name
-
+ 
     class Meta:
         verbose_name = 'Валюта'   
         verbose_name_plural = 'Валюты'  
@@ -38,9 +37,17 @@ class ExpensesCategory(Category):
 
 class IncomeSubCategory(Category):
     parent = models.ForeignKey(IncomeCategory, on_delete=models.CASCADE)
+    describe = models.TextField()
+
+    class Meta:
+        ordering = ["parent"]
 
 class ExpensesSubCategory(Category):
     parent = models.ForeignKey(ExpensesCategory, on_delete=models.CASCADE)
+    describe = models.TextField()
+
+    class Meta:
+        ordering = ["parent"]
 
 class Account(models.Model):
     '''Модель для описания конкретного кошелька
@@ -51,13 +58,13 @@ class Account(models.Model):
         сумма
         описание
     '''
-    name = models.CharField(max_length = 30, verbose_name='name',)
+    name = models.CharField(unique = True, max_length = 30, verbose_name='name',)
     currency = models.ForeignKey(Currency, on_delete=models.CASCADE, verbose_name='currency',)
     datetime = models.DateTimeField(auto_now_add=True, verbose_name='datetime')
     amount = models.DecimalField(max_digits = 15, decimal_places=2, verbose_name='amount')
     
     def __str__(self):
-        return str(self.currency) + str(self.amount) + str(self.datetime) 
+        return str(self.name) 
 
     class Meta:
         verbose_name = 'Счет'   
@@ -69,12 +76,12 @@ class IncomeExpensesBase(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)   
     amount = models.DecimalField(max_digits = 15, decimal_places=2, verbose_name='amount')
 
+
 class Income(IncomeExpensesBase):
     ''' Модель для описания всех поступления средст '''
     category = models.ForeignKey(IncomeSubCategory, on_delete=models.CASCADE)
 
 
-
 class Expenses(IncomeExpensesBase):
     ''' Модель для описания всех списаний средст '''    
-    category = models.ForeignKey(ExpensesCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(ExpensesSubCategory, on_delete=models.CASCADE)

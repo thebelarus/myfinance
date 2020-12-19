@@ -10,16 +10,6 @@ class OnlineBalanceForm(ModelForm):
             "category": "Категория",
             }                
 
-class CategoryForm(ModelForm):
-    class Meta:
-        model = models.Category
-        fields = ('name', 'describe')
-        labels = {
-            "name": "Имя",
-            "describe": "Описание",
-            }        
-
-
 class CurrencyForm(ModelForm):
     class Meta:
         model = models.Currency
@@ -45,3 +35,61 @@ class AccountForm(ModelForm):
             "amount":"Баланс"
             }   
     
+class IncomeCategoryForm(ModelForm):
+    class Meta:
+        model = models.IncomeCategory
+        fields = ('name',)
+        labels = {
+            "name": "Имя",
+            }        
+
+class ExpensesCategoryForm(ModelForm):
+    class Meta:
+        model = models.ExpensesCategory
+        fields = ('name',)
+        labels = {
+            "name": "Имя",
+            }        
+        
+class IncomeSubCategoryForm(ModelForm):
+    class Meta:
+        model = models.IncomeSubCategory
+        fields = ('name', 'describe', 'parent')
+        labels = {
+            "name": "Имя",
+            "describe": "Описание",
+            "parent":"Категория"
+            }  
+
+
+class ExpensesSubCategoryForm(ModelForm):
+    class Meta:
+        model = models.ExpensesSubCategory
+        fields = ('name', 'describe', 'parent')
+        labels = {
+            "name": "Имя",
+            "describe": "Описание",
+            "parent":"Категория"
+            }  
+
+
+class IncomeForm(ModelForm):
+    class Meta:
+        model = models.Income
+        fields = ('account', 'amount', 'category')
+        labels = {
+            "account": "Счет",
+            "amount": "Сумма",
+            "category":"Категория"
+            }
+
+
+class ExpensesForm(ModelForm):
+    class Meta:
+        model = models.Expenses
+        fields = ('account', 'amount', 'category')
+        labels = {
+            "account": "Счет",
+            "amount": "Сумма",
+            "category":"Категория"
+            }
