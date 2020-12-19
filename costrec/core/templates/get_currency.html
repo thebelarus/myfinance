@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ label }}:{% endblock %}
+
+{% block body %}
+    <h1 class="h_to_center">{{ label }}</h1>
+    {% if items %}
+        <table class="table table-striped">
+        <thead>
+        <tr>
+        	<th>Название валюты:</th>
+        	<th>Код:</th>
+            <th>Символ:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.currency_code}}</td>
+            <td>{{ item.code}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        </tbody>
+    {% else %}
+        <h3 class="h_to_center">Увы список пуст!</h3>
+        <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_currency' %}">Добавить!</a></h4>
+
+    {% endif %}
+{% endblock %}

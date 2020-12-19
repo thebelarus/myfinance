@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ label }}:{% endblock %}
+
+{% block body %}
+    <h1 class="h_to_center">{{ label }}</h1>
+    {% if items %}
+        <table class="table table-striped">
+        <thead>
+        <tr>
+        	<th>Название счета:</th>
+        	<th>Валюта:</th>
+            <th>Дата добавления:</th>
+            <th>Баланс:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.currency}}</td>
+            <td>{{ item.datetime}}</td>
+            <td>{{ item.amount}}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        </tbody>
+    {% else %}
+        <h3 class="h_to_center">Увы список пуст!</h3>
+        <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_account' %}">Добавить!</a></h4>
+
+    {% endif %}
+{% endblock %}
