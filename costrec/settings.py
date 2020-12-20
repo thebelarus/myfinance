@@ -25,7 +25,7 @@ SECRET_KEY = 'p2!@012$neotz^!-2c3e3t9cvt+!%oss^cbf628lov2c$dvsyz'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost','127.0.0.1','myfinan.herokuapp.com']
 
 
 # Application definition
