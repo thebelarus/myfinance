@@ -1,6 +1,8 @@
 from django.db.models import Sum
 from django.shortcuts import render, redirect
 from django.db.models import CharField, Value
+from django.shortcuts import get_object_or_404
+from itertools import chain
 from . import models, forms
 
 
@@ -34,21 +36,6 @@ def add_category(request):
         form = forms.CategoryForm()
         return render(request, 'add_category.html', {'form': form, 'label':label})
 
-
-
-# def add_category_base(request, form)
-#     if request.method == 'POST':
-#         form = forms.IncomeCategoryForm(request.POST)
-#         if form.is_valid():
-#             new_category = form.save(commit=False)
-#             new_category.save()
-#             return redirect('get_category')
-#         else:
-#             return render(request, 'add_category.html', {'form': form})
-#     else:
-#         form = forms.IncomeCategoryForm()
-#         return render(request, 'add_category.html', {'form': form})
-
 def get_income_category(request):
     label = 'Статьи доходов'
     items = models.IncomeCategory.objects.all()
@@ -56,20 +43,22 @@ def get_income_category(request):
      
 def get_expenses_category(request):
     label = 'Статьи расходов'
-    # items = models.ExpensesCategory.objects.all()
-    items = models.ExpensesSubCategory.objects.all().order_by('parent')
+    items = models.ExpensesCategory.objects.all()
     return get_category_template(request, label, items)  
 
 def get_income_sub_category(request):
     label = 'Статьи доходов'
-    items = models.IncomeSubCategory.objects.all()
-    return get_category_template(request, label, items) 
+    items = {}
+    items['category'] = models.IncomeCategory.objects.all()
+    items['subcategory'] = models.IncomeSubCategory.objects.all().order_by('parent')
+    return get_category_template(request, label, items)     
      
 def get_expenses_sub_category(request):
     label = 'Статьи расходов'
-    # items = models.ExpensesCategory.objects.all()
-    items = models.ExpensesSubCategory.objects.all().order_by('parent')
-    return get_category_template(request, label, items)  
+    items = {}
+    items['category'] = models.ExpensesCategory.objects.all()
+    items['subcategory'] = models.ExpensesSubCategory.objects.all().order_by('parent')
+    return get_category_template(request, label, items)        
 
 def get_category_template(request, label, items):
     context = {'items': items, 'label':label}
@@ -117,7 +106,7 @@ def add_account(request):
         if form.is_valid():
             new_account = form.save(commit=False)
             new_account.save()
-            return redirect('get_account')
+            return redirect('get_accounts')
         else:
             return render(request, 'add_item_form.html', {'form': form,'label':label})
     else:
@@ -125,10 +114,36 @@ def add_account(request):
         return render(request, 'add_item_form.html', {'form': form,'label':label})
 
 
-def get_account(request):
+def get_accounts(request):
     label = 'Список доступных счетов'
     items = models.Account.objects.all()
-    return render(request, 'get_account.html', {'items':items,'label':label})    
+    return render(request, 'get_accounts.html', {'items':items,'label':label})    
+
+def get_account(request, account_id):
+    label = 'Информация о счете:'
+    item = {}
+    item['info'] = get_object_or_404(models.Account, pk=account_id)
+    items_income = models.Income.objects.filter(account = item['info']).order_by('-datetime').annotate(type_of = Value('+', output_field=CharField()))
+    items_expenses = models.Expenses.objects.filter(account = item['info']).order_by('-datetime').annotate(type_of = Value('-', output_field=CharField()))
+    items = sorted(
+        chain(items_income, items_expenses),
+        key=lambda item: item.datetime, reverse=False)
+    item['data'] = items
+    items_income_amount_sum = items_income.aggregate(Sum('amount'))['amount__sum']
+    items_expenses_amount_sum = items_expenses.aggregate(Sum('amount'))['amount__sum'] 
+    print('amount', item['info'].amount)
+    item['total'] = item['info'].amount
+    item['total'] += items_income_amount_sum if items_income_amount_sum else 0
+    item['total'] -= items_expenses_amount_sum if items_expenses_amount_sum else 0
+    return render(request, 'get_account.html', {'item':item,'label':label}) 
+
+
+def delete_account(request, account_id):
+    label = 'Информация о счете:'
+    item = models.Account.objects.get(id=account_id)
+    item.delete()
+    # message = 'Счет был успешно удален!'
+    return redirect('get_accounts')    
 
 
 def add_income_category(request):
@@ -138,7 +153,7 @@ def add_income_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('get_category')
+            return redirect('get_income_category')
         else:
             return render(request, 'add_category.html', {'form': form, 'label':label})
     else:
@@ -152,7 +167,7 @@ def add_expenses_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('get_category')
+            return redirect('get_expenses_category')
         else:
             return render(request, 'add_category.html', {'form': form, 'label':label})
     else:
@@ -166,7 +181,7 @@ def add_income_sub_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('get_category')
+            return redirect('get_income_sub_category')
         else:
             return render(request, 'add_category.html', {'form': form, 'label':label})
     else:
@@ -181,7 +196,7 @@ def add_expenses_sub_category(request):
         if form.is_valid():
             new_category = form.save(commit=False)
             new_category.save()
-            return redirect('get_category')
+            return redirect('get_expenses_sub_category')
         else:
             return render(request, 'add_category.html', {'form': form, 'label':label})
     else:
@@ -237,3 +252,13 @@ def get_full(request):
     label = 'Список всех движений средст'
     return render(request, 'get_income.html', {'items':items,'label':label}) 
 
+
+def get_full___(request, account):
+    from itertools import chain
+    items_income = models.Income.objects.all().order_by('datetime').annotate(type_of = Value('+', output_field=CharField()))
+    items_expenses = models.Expenses.objects.all().order_by('datetime').annotate(type_of = Value('-', output_field=CharField()))
+    items = sorted(
+        chain(items_income, items_expenses),
+        key=lambda item: item.datetime, reverse=True)
+    label = 'Список всех движений средст'
+    return render(request, 'get_income.html', {'items':items,'label':label}) 

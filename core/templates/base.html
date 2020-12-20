@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>
-        {% block title %}Мои финансы{% endblock %}
+        {% block title %}Мои финансы(BETA){% endblock %}
     </title>
     {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
 	<div class="container">
 	{% block menu %}
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		    <a class="navbar-brand" href="">Мои финансы</a>
+		    <a class="navbar-brand" href="">Мои финансы(BETA)</a>
 		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -36,7 +36,7 @@
                                     <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Расходов</a></li>                                
                                 </ul>
                             </li>                             
-                            <li><a  class="dropdown-item" href="{% url 'get_account'%}">Перечень счетов</a></li>
+                            <li><a  class="dropdown-item" href="{% url 'get_accounts'%}">Перечень счетов</a></li>
                             <li><a  class="dropdown-item" href="{% url 'get_currency'%}">Перечень валют</a></li>
                         </ul>
                     </li>  
