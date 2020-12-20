@@ -78,11 +78,22 @@ WSGI_APPLICATION = 'costrec.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+print('+++++++++++++++')
+print(os.environ.get('NAME'))
+print(os.environ.get('USER'))
+print(os.environ.get('PASSWORD'))
+print(os.environ.get('HOST'))
+print(os.environ.get('PORT'))
+print('------------------')
+print(os.environ)
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
+        'HOST': os.environ.get('HOST'),
+        'PORT': os.environ.get('PORT'),
     }
 }
 
