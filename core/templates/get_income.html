@@ -23,9 +23,9 @@
             <td>
             {% if item.type_of %}
                 {% if item.type_of == '+' %}
-                <span style="color: green">
+                    <span style="color: green">
                 {% else %}
-                <span style="color: red">
+                    <span style="color: red">
                 {% endif %}
                 {{ item.type_of}}{{ item.amount}}</span>
             {% else %}

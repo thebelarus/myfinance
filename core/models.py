@@ -23,7 +23,7 @@ class Currency(models.Model):
     code = models.CharField(max_length = 1, verbose_name='code')
 
     def __str__(self):
-        return self.name
+        return '{}({})'.format(self.name, self.code)
  
     class Meta:
         verbose_name = 'Валюта'   

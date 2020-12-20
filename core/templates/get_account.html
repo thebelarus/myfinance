@@ -4,30 +4,58 @@
 
 {% block body %}
     <h1 class="h_to_center">{{ label }}</h1>
-    {% if items %}
+    {% if item.info %}
+    	<h2>Название счета: {{ item.info.name }}</h2>
+        <h2>Валюта: {{ item.info.currency}}</h2>
+        <h2>Дата добавления: {{ item.info.datetime}}</h2>
+        <h2>Сумма на счету: {{ item.total}} (начальный баланс {{ item.info.amount}})</h2>
+        <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'delete_account' item.info.id %}">Удалить счет</a>            
+    {% endif %}
+    {% if item.data %}  
         <table class="table table-striped">
         <thead>
         <tr>
-        	<th>Название счета:</th>
-        	<th>Валюта:</th>
+            <th>Название счета:</th>
+            <th>Категория:</th>
             <th>Дата добавления:</th>
-            <th>Баланс:</th>
+            <th>Сумма:</th>
         </tr>
         </thead>
         <tbody>
-        {% for item in items %}
+        {% for data_item in item.data %}
         <tr>
-            <td>{{ item.name }}</td>
-            <td>{{ item.currency}}</td>
-            <td>{{ item.datetime}}</td>
-            <td>{{ item.amount}}</td>
+            <td>{{ data_item.account }}</td>
+            <td>{{ data_item.category}}</td>
+            <td>{{ data_item.datetime}}</td>
+            <td>
+            {% if data_item.type_of %}
+                {% if data_item.type_of == '+' %}
+                    <span style="color: green">
+                {% else %}
+                    <span style="color: red">
+                {% endif %}
+                {{ data_item.type_of}}{{ data_item.amount}}</span>
+            {% else %}
+                {{ data_item.type_of}}{{ data_item.amount}}
+            {% endif %}
+            </td>
         </tr>
         {% endfor %}
-        </table>
+        
         </tbody>
-    {% else %}
+        <tfoot>
+            <td></td>
+            <td></td>
+            <td>Итого:</td>
+            <td>{{ item.total}}</td>            
+        </tfoot>
+        </table>
+
+        <h4 class="h_to_center"><a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_income' %}">Добавить новую запись</a></h4>
+
+<!--     {% else %}
         <h3 class="h_to_center">Увы список пуст!</h3>
         <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_account' %}">Добавить!</a></h4>
+ -->    {% endif %}
 
-    {% endif %}
 {% endblock %}

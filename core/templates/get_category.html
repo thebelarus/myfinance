@@ -4,18 +4,40 @@
 
 {% block body %}
     <h1 class="h_to_center">{{label}}:</h1>
-
-    {% if items %}
+    <h3 class="h_to_center">Категории:</h3>
+    {% if items.category %}
         <table class="table table-striped">
         <thead>
         <tr>
             <th>Имя:</th>
-        	<th>Категории:</th>
-        	<th>Описание:</th>
         </tr>
         </thead>
         <tbody>
-        {% for item in items %}
+        {% for item in items.category %}
+        <tr>
+            <td>{{ item.name }}</td>
+        </tr>
+        {% endfor %}
+        </table>
+        </tbody>
+    {% else %}
+        <h4 class="h_to_center">Увы список пуст!</h4>     
+<!--         <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_category' %}">Добавить!</a></h4>
+ -->
+    {% endif %}    
+
+    <h3 class="h_to_center">Подкатегории:</h3>  
+    {% if items.subcategory %}
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Имя:</th>
+            <th>Категории:</th>
+            <th>Описание:</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items.subcategory %}
         <tr>
             <td>{{ item.name }}</td>
             <td>{{ item.parent }}</td>
@@ -25,9 +47,9 @@
         </table>
         </tbody>
     {% else %}
-        <h3 class="h_to_center">Увы список пуст!</h3>     
-        <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_category' %}">Добавить!</a></h4>
-
+        <h4 class="h_to_center">Увы список пуст!</h4>     
+<!--         <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_category' %}">Добавить!</a></h4>
+ -->
     {% endif %}
 
 {% endblock %}
