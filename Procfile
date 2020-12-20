@@ -1,0 +1,1 @@
+web: gunicorn costrec.wsgi --log-file -
