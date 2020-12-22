@@ -75,23 +75,14 @@ class ExpensesSubCategoryForm(ModelForm):
 
 
 class IncomeForm(ModelForm):
-    date_field = forms.DateField(
-        widget=forms.TextInput(     
-            attrs={'type': 'date'} 
-        )
-    )          
-    import datetime
-    cur_year = datetime.datetime.today().year
-    year_range = tuple([i for i in range(cur_year - 2, cur_year + 2)])
-    hist_date = forms.DateField(initial=datetime.date.today() - datetime.timedelta(days=7),widget=forms.SelectDateWidget(years=year_range))
     class Meta:
         model = models.Income
         fields = ('account', 'amount', 'category','datetime')
         labels = {
             "account": "Счет",
             "amount": "Сумма",
-            "category":"Категория",
-            "'datetime'":"Дата"            
+            "category":"Подкатегория",
+            "datetime":"Дата"            
             }
 
 
@@ -102,6 +93,6 @@ class ExpensesForm(ModelForm):
         labels = {
             "account": "Счет",
             "amount": "Сумма",
-            "category":"Категория",
-            "'datetime'":"Дата"
+            "category":"Подкатегория",
+            "datetime":"Дата"
             }
