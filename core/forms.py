@@ -1,14 +1,15 @@
 from django.forms import ModelForm
 from . import models
+from django import forms
 
-class OnlineBalanceForm(ModelForm):
-    class Meta:
-        model = models.OnlineBalance
-        fields = ('amount', 'category')
-        labels = {
-            "amount": "Сумма",
-            "category": "Категория",
-            }                
+# class OnlineBalanceForm(ModelForm):
+#     class Meta:
+#         model = models.OnlineBalance
+#         fields = ('amount', 'category')
+#         labels = {
+#             "amount": "Сумма",
+#             "category": "Категория",
+#             }                
 
 class CurrencyForm(ModelForm):
     class Meta:
@@ -32,7 +33,7 @@ class AccountForm(ModelForm):
             "name": "Имя счета",
             "currency": "Валюта",
             "datetime":"Дата добавления",
-            "amount":"Баланс"
+            "amount":"Начальный баланс"
             }   
     
 class IncomeCategoryForm(ModelForm):
@@ -74,22 +75,33 @@ class ExpensesSubCategoryForm(ModelForm):
 
 
 class IncomeForm(ModelForm):
+    date_field = forms.DateField(
+        widget=forms.TextInput(     
+            attrs={'type': 'date'} 
+        )
+    )          
+    import datetime
+    cur_year = datetime.datetime.today().year
+    year_range = tuple([i for i in range(cur_year - 2, cur_year + 2)])
+    hist_date = forms.DateField(initial=datetime.date.today() - datetime.timedelta(days=7),widget=forms.SelectDateWidget(years=year_range))
     class Meta:
         model = models.Income
-        fields = ('account', 'amount', 'category')
+        fields = ('account', 'amount', 'category','datetime')
         labels = {
             "account": "Счет",
             "amount": "Сумма",
-            "category":"Категория"
+            "category":"Категория",
+            "'datetime'":"Дата"            
             }
 
 
 class ExpensesForm(ModelForm):
     class Meta:
         model = models.Expenses
-        fields = ('account', 'amount', 'category')
+        fields = ('account', 'amount', 'category','datetime')
         labels = {
             "account": "Счет",
             "amount": "Сумма",
-            "category":"Категория"
+            "category":"Категория",
+            "'datetime'":"Дата"
             }

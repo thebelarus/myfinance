@@ -78,14 +78,6 @@ WSGI_APPLICATION = 'costrec.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-print('+++++++++++++++')
-print(os.environ.get('NAME'))
-print(os.environ.get('USER'))
-print(os.environ.get('PASSWORD'))
-print(os.environ.get('HOST'))
-print(os.environ.get('PORT'))
-print('------------------')
-print(os.environ)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -120,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'
 
 TIME_ZONE = 'UTC'
 
