@@ -20,3 +20,7 @@ display: block;
 .h_to_center {
     text-align: center;
 }
+
+.link-for-delete {
+	display: none;
+}

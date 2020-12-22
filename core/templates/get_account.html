@@ -5,11 +5,15 @@
 {% block body %}
     <h1 class="h_to_center">{{ label }}</h1>
     {% if item.info %}
-    	<h2>Название счета: {{ item.info.name }}</h2>
-        <h2>Валюта: {{ item.info.currency}}</h2>
-        <h2>Дата добавления: {{ item.info.datetime}}</h2>
-        <h2>Сумма на счету: {{ item.total}} (начальный баланс {{ item.info.amount}})</h2>
-        <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'delete_account' item.info.id %}">Удалить счет</a>            
+    	<h3>Название счета: {{ item.info.name }}</h3>
+        <h3>Валюта: {{ item.info.currency}}</h3>
+        <h3>Дата добавления: {{ item.info.datetime}}</h3>
+        <h3>Сумма на счету: {{ item.total}} (начальный баланс {{ item.info.amount}})</h3>
+        <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_income' %}">Положить на счет</a>            
+        <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_expenses' %}">Списать с cчета</a>            
+        <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'account_to_pdf_export' item.info.id %}">Экспорт в PDF</a>            
+        <a onclick="show_links_for_delete()" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Редактировать</a>      
+        <a class="btn btn-danger btn-lg active" role="button" aria-pressed="true"  href="{% url 'delete_account' item.info.id %}">Удалить счет</a>            
     {% endif %}
     {% if item.data %}  
         <table class="table table-striped">
@@ -39,6 +43,15 @@
                 {{ data_item.type_of}}{{ data_item.amount}}
             {% endif %}
             </td>
+            {% if data_item.prefix %}
+                {% if data_item.prefix == 'income' %}
+                <td><a class="btn btn-danger btn-sm active link-for-delete" role="button" aria-pressed="true" name="delete_item" href="{% url 'delete_income' data_item.id %}">Удалить</a></td>
+                {% endif %}
+                {% if data_item.prefix == 'expenses' %}
+                <td><a class="btn btn-danger btn-sm active link-for-delete" role="button" aria-pressed="true" name="delete_item" href="{% url 'delete_expenses' data_item.id %}">Удалить</a></td>
+                {% endif %}
+                
+            {% endif %}
         </tr>
         {% endfor %}
         
@@ -50,12 +63,6 @@
             <td>{{ item.total}}</td>            
         </tfoot>
         </table>
-
-        <h4 class="h_to_center"><a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_income' %}">Добавить новую запись</a></h4>
-
-<!--     {% else %}
-        <h3 class="h_to_center">Увы список пуст!</h3>
-        <h4 class="h_to_center">Но вы можете добавить новый элемент <a class="btn btn-primary btn-lg active" role="button" aria-pressed="true"  href="{% url 'add_account' %}">Добавить!</a></h4>
- -->    {% endif %}
+    {% endif %}
 
 {% endblock %}

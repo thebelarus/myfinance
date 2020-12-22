@@ -10,6 +10,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/base.js' %}"></script>
+
 </head>
 
 <body>
@@ -27,17 +29,13 @@
                           Получить
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a  class="dropdown-item" href="{% url 'get_full'%}">Общая выписка по доходам и расходам</a></li>
-                            <li><a  class="dropdown-item" href="{% url 'get_income'%}">Выписку по доходам</a></li>
-                            <li><a  class="dropdown-item" href="{% url 'get_expenses'%}">Выписку по расходам</a></li>
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Категорию</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="{% url 'get_income_sub_category'%}">Доходов</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Расходов</a></li>                                
-                                </ul>
-                            </li>                             
-                            <li><a  class="dropdown-item" href="{% url 'get_accounts'%}">Перечень счетов</a></li>
-                            <li><a  class="dropdown-item" href="{% url 'get_currency'%}">Перечень валют</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_accounts'%}">Перечень счетов</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_full'%}">Общая выписка по доходам и расходам</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_income'%}">Выписку по доходам</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_expenses'%}">Выписку по расходам</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_income_sub_category'%}">Категории доходов</a></li>
+                            <li><a class="dropdown-item" href="{% url 'get_expenses_sub_category'%}">Категории расходов</a></li>                                
+                            <li><a class="dropdown-item" href="{% url 'get_currency'%}">Перечень валют</a></li>
                         </ul>
                     </li>  
                     <li class="dropdown">
@@ -45,7 +43,7 @@
                           Добавить
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="http://google.com">Движение по счету</a>
+                            <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="">Движение по счету</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="{% url 'add_income'%}">Доход</a></li>
                                     <li><a class="dropdown-item" href="{% url 'add_expenses'%}">Расход</a></li> 
@@ -55,13 +53,13 @@
                             <li><a  class="dropdown-item" href="{% url 'add_currency'%}">Валюту</a></li>
                             <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Категорию</a>
                                 <ul class="dropdown-menu">
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="">Расходов</a>
+                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#">Расходов</a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="{% url 'add_expenses_category'%}">Категорию</a></li>
                                             <li><a class="dropdown-item" href="{% url 'add_expenses_sub_category'%}">Подкатегорию</a></li> 
                                         </ul>
                                       </li>                                            
-                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"  href="">Доходов</a>
+                                    <li class="dropdown-submenu"><a class="dropdown-item dropdown-toggle"  href="#">Доходов</a>
                                         <ul class="dropdown-menu">
                                             <li><a class="dropdown-item" href="{% url 'add_income_category'%}">Категорию</a></li>
                                             <li><a class="dropdown-item" href="{% url 'add_income_sub_category'%}">Подкатегорию</a></li> 
