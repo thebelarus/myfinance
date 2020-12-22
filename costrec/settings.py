@@ -75,11 +75,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'costrec.wsgi.application'
 
-os.environ["PG_NAME"] = "django"
-os.environ["PG_USER"] = "postgres"
-os.environ["PG_PASSWORD"] = "123"
-os.environ["PG_HOST"] = "localhost"
-os.environ["PG_PORT"] = "5432"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
